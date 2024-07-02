@@ -17,11 +17,14 @@ HEADERS = node.hpp tree.hpp
 OBJS = $(SRCS:.cpp=.o)
 
 # Default target
-all: $(TARGET)
+all: $(TARGET) test
 
 # Link the object files to create the executable
 $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
+
+test: TestCounter.o test.o
+	$(CXX) $(CXXFLAGS) -o test TestCounter.o test.o
 
 # Compile the source files into object files
 %.o: %.cpp $(HEADERS)

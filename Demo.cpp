@@ -33,7 +33,7 @@ int main() {
     Node<Complex>* node3 = new Node<Complex>(Complex(1.4, 1.4));
     Node<Complex>* node4 = new Node<Complex>(Complex(1.5, 1.5));
     Node<Complex>* node5 = new Node<Complex>(Complex(1.6, 1.6));
-    Node<Complex>* node6 = new Node<Complex>(Complex(1.7, 1.7));
+    //Node<Complex>* node6 = new Node<Complex>(Complex(1.7, 1.7));
 
     tree.add_sub_node(root_node, node1);
     tree.add_sub_node(root_node, node2);
