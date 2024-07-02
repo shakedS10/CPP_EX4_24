@@ -1,3 +1,4 @@
+//214695108 shakedshvartz2004@gmail.com
 #include "mainwindow.hpp"
 #include <QSplitter>
 #include <QVBoxLayout>
