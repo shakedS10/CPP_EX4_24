@@ -272,10 +272,12 @@ template <typename T>
 class Tree {
     private:
         Node<T>* root;
+        bool is_binary;
 
     public:
         Tree(Node<T>* root = nullptr) {
             this->root = root;
+            this->is_binary = true;
         }
 
         ~Tree() {
@@ -288,6 +290,9 @@ class Tree {
 
         void add_sub_node(Node<T>* parent, Node<T>* child) {
             parent->addKid(child);
+            if(parent->getKids().size() > 2) {
+                is_binary = false;
+            }
         }
 
         Node<T>* get_root() {
@@ -295,7 +300,9 @@ class Tree {
         }
 
         pre_order_iterator<T> begin_pre_order() {
-            return pre_order_iterator<T>(root);
+            if(this->is_binary)
+                return pre_order_iterator<T>(root);
+            throw invalid_argument("Tree is not binary");
         }
 
         pre_order_iterator<T> end_pre_order() {
@@ -303,7 +310,9 @@ class Tree {
         }
 
         post_order_iterator<T> begin_post_order() {
-            return post_order_iterator<T>(root);
+            if(this->is_binary)
+                return post_order_iterator<T>(root);
+            throw invalid_argument("Tree is not binary");
         }
 
         post_order_iterator<T> end_post_order() {
@@ -311,7 +320,9 @@ class Tree {
         }
 
         in_order_iterator<T> begin_in_order() {
-            return in_order_iterator<T>(root);
+            if(this->is_binary)
+                return in_order_iterator<T>(root);
+            throw invalid_argument("Tree is not binary");
         }
 
         in_order_iterator<T> end_in_order() {
@@ -335,11 +346,44 @@ class Tree {
         }
 
         my_heap_iterator<T> myHeap() {
-            return my_heap_iterator<T>(this);
+            if(this->is_binary)
+                return my_heap_iterator<T>(this);
+            throw invalid_argument("Tree is not binary");
         }
 
         my_heap_iterator<T> end_myHeap() {
             return my_heap_iterator<T>(nullptr);
+        }
+
+        string stringIsL(T data)
+        {
+            stringstream ss;
+            ss << data;
+            return ss.str();
+        }
+
+
+        Tree<string>* convert_to_string_tree() {
+            Tree<string>* new_tree = new Tree<string>();
+            if(root == nullptr) {
+                return new_tree;
+            }
+            Node<string>* new_root = new Node<string>(stringIsL(root->getData()));
+            new_tree->add_root(new_root);
+            convert_to_string_tree_helper(root, new_root);
+            return new_tree;
+        }
+
+
+        void convert_to_string_tree_helper(Node<T>* root, Node<string>* new_root) {
+            if(root == nullptr) {
+                return;
+            }
+            for (int i = 0; i < root->getKids().size(); i++) {
+                Node<string>* new_node = new Node<string>(stringIsL(root->getKids()[i]->getData()));
+                new_root->addKid(new_node);
+                convert_to_string_tree_helper(root->getKids()[i], new_node);
+            }
         }
 
 

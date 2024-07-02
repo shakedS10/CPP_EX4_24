@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <sstream>
 
 
 
@@ -63,6 +64,13 @@ class Node {
             for (int i = 0; i < kids.size(); i++) {
                 kids[i]->print();
             }
+        }
+
+
+        std::string toString() const {
+            std::ostringstream oss;
+            oss << data;
+            return oss.str();
         }
 
 
