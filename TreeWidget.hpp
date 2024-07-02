@@ -14,7 +14,7 @@ class TreeWidget : public QWidget {
 public:
     explicit TreeWidget(Tree<string>* tree, QWidget* parent = nullptr);
     void drawTree(Node<std::string>* node, QGraphicsScene* scene, QGraphicsItem* parentItem = nullptr, int level = 0, int xOffset = 0);
-    void updateHorizontalOffset(Node<std::string>* node, int& xOffset, int level);
+    
 
 private:
     Tree<std::string>* tree;
